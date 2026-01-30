@@ -11,3 +11,14 @@ export interface IRegisterRequest {
   firstName: string;
   lastName: string;
 }
+
+
+export interface IVerifyAccountRequest {
+  email: string;
+  otp: string;
+}
+
+export interface IResendOtpRequest {
+  email: string;
+  sendType: string;
+}
