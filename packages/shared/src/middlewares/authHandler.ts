@@ -1,10 +1,9 @@
-
 require('dotenv').config();
-import type {Request, Response, NextFunction} from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { apiRes } from '../utils/apiResponse';
-import {HttpStatusCodes} from '../utils/statusCodes';
-import {HttpStatusMessages} from '../utils/statusResponse';
+import { HttpStatusCodes } from '../utils/statusCodes';
+import { HttpStatusMessages } from '../utils/statusResponse';
 
 declare global {
   namespace Express {
@@ -65,12 +64,7 @@ export const authenticate = async (req: Request, res: Response, next: NextFuncti
   } catch (error: any) {
     console.log(`error: ${error}`);
     if (error.name === 'JsonWebTokenError') {
-      return apiRes(
-        res,
-        'Invalid token.',
-        HttpStatusCodes.UNAUTHORIZED,
-        HttpStatusMessages.FAILED
-      );
+      return apiRes(res, 'Invalid token.', HttpStatusCodes.UNAUTHORIZED, HttpStatusMessages.FAILED);
     }
 
     if (error.name === 'TokenExpiredError') {
