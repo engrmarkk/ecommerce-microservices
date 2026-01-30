@@ -38,7 +38,7 @@ const loginController = async (req: Request, res: Response) => {
     userId: user.id,
     email: user.email,
     isActive: user.isActive,
-    emailVerified: user.emailVerified
+    emailVerified: user.emailVerified,
   });
   await updateLastLogin(user.id);
   return apiRes(

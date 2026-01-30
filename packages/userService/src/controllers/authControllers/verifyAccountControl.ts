@@ -1,6 +1,17 @@
 import { Request, Response } from 'express';
-import { IVerifyAccountRequest, apiRes, HttpStatusCodes, HttpStatusMessages } from '@ecommerce/shared';
-import { findUserByEmail, updateLastLogin, updateUserSession, getUserSession, updateEmailVerified } from '../../dbCruds/authCrud';
+import {
+  IVerifyAccountRequest,
+  apiRes,
+  HttpStatusCodes,
+  HttpStatusMessages,
+} from '@ecommerce/shared';
+import {
+  findUserByEmail,
+  updateLastLogin,
+  updateUserSession,
+  getUserSession,
+  updateEmailVerified,
+} from '../../dbCruds/authCrud';
 import { generateToken } from '../../utils/index';
 
 const verifyAccountController = async (req: Request, res: Response) => {
@@ -53,7 +64,7 @@ const verifyAccountController = async (req: Request, res: Response) => {
     userId: user.id,
     email: user.email,
     isActive: user.isActive,
-    emailVerified: user.emailVerified
+    emailVerified: user.emailVerified,
   });
   await updateLastLogin(user.id);
   return apiRes(

@@ -56,44 +56,51 @@ const getUserSession = async (userId: string) => {
 
 // update user session (otp)
 const updateUserSession = async (
-  userId: string, 
+  userId: string,
   updates: { otp?: string; otpExpiresAt?: boolean; otpUsed?: boolean }
 ) => {
   // Build data object conditionally
   const data: any = {};
-  
+
   if (updates.otp !== undefined) {
     data.otp = updates.otp;
   }
-  
+
   if (updates.otpExpiresAt === true) {
     data.otpExpiresAt = new Date(Date.now() + 10 * 60 * 1000);
   }
-  
+
   if (updates.otpUsed !== undefined) {
     data.otpUsed = updates.otpUsed;
   }
-  
+
   return await prisma.userSession.update({
     where: { userId },
-    data
+    data,
   });
 };
 
 const updateLastLogin = async (userId: string) => {
   return await prisma.user.update({
     where: { id: userId },
-    data: { lastLogin: new Date() }
+    data: { lastLogin: new Date() },
   });
 };
 
 const updateEmailVerified = async (userId: string) => {
   return await prisma.user.update({
     where: { id: userId },
-    data: { emailVerified: true }
+    data: { emailVerified: true },
   });
 };
 
-export { findUserByEmail, saveUser, createUserSession, 
-  updateEmailVerified, updateLastLogin, getUserSession, updateUserSession,
-findUserById };
+export {
+  findUserByEmail,
+  saveUser,
+  createUserSession,
+  updateEmailVerified,
+  updateLastLogin,
+  getUserSession,
+  updateUserSession,
+  findUserById,
+};
