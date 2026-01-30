@@ -12,7 +12,6 @@ export interface IRegisterRequest {
   lastName: string;
 }
 
-
 export interface IVerifyAccountRequest {
   email: string;
   otp: string;
