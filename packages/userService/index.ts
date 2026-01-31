@@ -12,7 +12,7 @@ app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 
-const authPort = 3002;
+const authPort = process.env.AUTH_SERVICE_PORT || 3002;
 
 app.listen(authPort, () => {
   console.log('the server url is http://localhost:' + authPort);
