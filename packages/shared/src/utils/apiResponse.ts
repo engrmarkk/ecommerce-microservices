@@ -5,8 +5,10 @@ export const apiRes = (
   message: string,
   statCode: number,
   statMsg: string,
-  data: any = null
+  data: any = null,
+  spreadData: Boolean = false
 ) => {
+  if (spreadData) return res.status(statCode).json({ message, status: statMsg, ...data });
   return res.status(statCode).json({
     message,
     status: statMsg,
