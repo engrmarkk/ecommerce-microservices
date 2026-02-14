@@ -1,0 +1,53 @@
+services:
+  # The Database (Shared by services or use separate DBs if preferred)
+  postgres-db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ecommAuth
+    ports:
+      - "5433:5432"
+
+  # API Gateway (The Entry Point)
+  api-gateway:
+    build: 
+      context: .
+      dockerfile: ./packages/apiGateway/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      USER_SERVICE_URL: "http://user-service:3001"
+      # PRODUCT_SERVICE_URL: "http://product-service:3002"
+      # ORDER_SERVICE_URL: "http://order-service:3003"
+    depends_on:
+      - user-service
+      # - product-service
+      # - order-service
+
+  user-service:
+    build:
+      context: .
+      dockerfile: ./packages/userService/Dockerfile
+    env_file:
+      - ./packages/userService/.env
+    depends_on:
+      - postgres-db
+
+  # product-service:
+  #   build:
+  #     context: .
+  #     dockerfile: ./packages/productService/Dockerfile
+  #   environment:
+  #     DATABASE_URL: "postgresql://user:password@postgres-db:5432/ecommerce_db?schema=products"
+  #   depends_on:
+  #     - postgres-db
+
+  # order-service:
+  #   build:
+  #     context: .
+  #     dockerfile: ./packages/orderService/Dockerfile
+  #   environment:
+  #     DATABASE_URL: "postgresql://user:password@postgres-db:5432/ecommerce_db?schema=orders"
+  #   depends_on:
+  #     - postgres-db
