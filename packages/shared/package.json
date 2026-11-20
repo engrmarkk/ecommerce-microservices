@@ -6,8 +6,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node init && tsc",
-    "dev": "node init && tsc --watch"
+    "build": "tsc",
+    "dev": "tsc --watch"
   },
   "author": "",
   "license": "ISC",
