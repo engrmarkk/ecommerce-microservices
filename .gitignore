@@ -146,4 +146,4 @@ packages/*/dist/
 # EXCEPT shared package
 # !packages/shared/dist/
 .gitignore
-.vscode
+config.bat
